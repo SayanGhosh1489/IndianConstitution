@@ -22,13 +22,17 @@ index = os.environ.get('PINE_CONE_INDEX')
 #Loading the index
 os.environ['PINECONE_API_KEY'] = PINE_CONE_API
 
-
-def qa_bot():
-    docsearch=PineconeVectorStore.from_existing_index(index_name=index,embedding=embeddings)
-    llm=CTransformers(model="Model/llama-2-7b-chat.ggmlv3.q8_0.bin",
+def get_model():
+    llm = CTransformers(model="Model/llama-2-7b-chat.ggmlv3.q8_0.bin",
                   model_type="llama",
                   config={'max_new_tokens':512,
                           'temperature':0.8},device = 'auto')
+    return llm
+
+
+def qa_bot():
+    docsearch=PineconeVectorStore.from_existing_index(index_name=index,embedding=embeddings)
+    llm=get_model()
     qa=RetrievalQA.from_chain_type(
         llm=llm, 
         chain_type="stuff", 
@@ -62,8 +66,9 @@ async def main(message):
     )
 
     cb.answer_reached = True
-    res = await chain.acall(message, callbacks=[cb])
+    res = await chain.acall(message.content, callbacks=[cb])
     answer = res['result']
+    print(answer)
     sources = res['source_documents']  # Correct the typo here
     
     if sources:
