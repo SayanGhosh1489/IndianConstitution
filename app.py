@@ -72,7 +72,7 @@ async def main(message):
     sources = res['source_documents']  # Correct the typo here
     
     if sources:
-        answer += f"\nSources: " + str(sources)
+        answer += f"\n\nSources: " + str(sources)
     else:
         answer += "\nNo source found"
         
