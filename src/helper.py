@@ -14,7 +14,7 @@ def data_reader(Data):
     doc = loader.load()
     return doc
 
-def text_split(extracted_data, size = 500, overlap = 50):
+def text_split(extracted_data, size = 500, overlap = 100):
     """
     Splitting the data into text chunks
     default Chunk Size = 500, chunk_overlap = 50
