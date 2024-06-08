@@ -1,0 +1,8 @@
+pypdf
+langchain
+langchain-community
+sentence-transformers==2.2.2
+ctransformers==0.2.25
+accelerate
+flask
+pinecone-client
