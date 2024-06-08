@@ -6,3 +6,6 @@ ctransformers==0.2.25
 accelerate
 flask
 pinecone-client
+-e .
+langchain_pinecone
+python-dotenv
