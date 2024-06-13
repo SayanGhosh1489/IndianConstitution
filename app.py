@@ -25,8 +25,10 @@ os.environ['PINECONE_API_KEY'] = PINE_CONE_API
 def get_model():
     llm = CTransformers(model="Model/llama-2-7b-chat.ggmlv3.q8_0.bin",
                   model_type="llama",
-                  config={'max_new_tokens':512,
-                          'temperature':0.8},device = 'auto')
+                  config={'max_new_tokens':1024,
+                          'temperature':0.8,
+                          "top_p": 0.9
+                          },device = 'auto')
     return llm
 
 
@@ -36,7 +38,7 @@ def qa_bot():
     qa=RetrievalQA.from_chain_type(
         llm=llm, 
         chain_type="stuff", 
-        retriever=docsearch.as_retriever(search_kwargs={'k': 3}),
+        retriever=docsearch.as_retriever(search_kwargs={'k': 2}),
         return_source_documents=True, 
         chain_type_kwargs=prompt)
     return qa
