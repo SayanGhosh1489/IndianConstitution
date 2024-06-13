@@ -36,7 +36,7 @@ def qa_bot():
     qa=RetrievalQA.from_chain_type(
         llm=llm, 
         chain_type="stuff", 
-        retriever=docsearch.as_retriever(search_kwargs={'k': 2}),
+        retriever=docsearch.as_retriever(search_kwargs={'k': 3}),
         return_source_documents=True, 
         chain_type_kwargs=prompt)
     return qa
@@ -69,7 +69,7 @@ async def main(message):
     res = await chain.acall(message.content, callbacks=[cb])
     answer = res['result']
     print(answer)
-    sources = res['source_documents']  # Correct the typo here
+    sources = res['source_documents']
     
     if sources:
         answer += f"\n\nSources: " + str(sources)
